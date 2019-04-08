@@ -2,9 +2,7 @@ variable "project_id" {}
 
 variable "packet_facility" {}
 
-variable "version" {
-  default = "v0.1.0-alpha.19"
-}
+variable "version" {}
 
 variable "boot_args" {
   default = [
