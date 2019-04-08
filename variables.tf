@@ -2,7 +2,7 @@ variable "project_id" {}
 
 variable "packet_facility" {}
 
-variable "version" {}
+variable "talos_version" {}
 
 variable "boot_args" {
   default = [
