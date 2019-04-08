@@ -10,7 +10,7 @@ data "template_file" "matchbox_talos_profile" {
   template = "${file("${path.module}/templates/matchbox_profile.tmpl")}"
 
   vars {
-    version = "${var.version}"
+    version = "${var.talos_version}"
     args    = "${jsonencode(concat(var.boot_args, list(local.talos_platform, "talos.userdata=none")))}"
   }
 }
@@ -32,10 +32,10 @@ resource "null_resource" "matchbox_profiles" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd /var/lib/matchbox/assets/talos/${var.version}",
-      "wget https://github.com/autonomy/talos/releases/download/${var.version}/vmlinuz -O vmlinuz",
-      "wget https://github.com/autonomy/talos/releases/download/${var.version}/initramfs.xz -O initramfs.xz",
-      "wget https://github.com/autonomy/talos/releases/download/${var.version}/rootfs.tar.gz -O rootfs.tar.gz",
+      "cd /var/lib/matchbox/assets/talos/${var.talos_version}",
+      "wget https://github.com/autonomy/talos/releases/download/${var.talos_version}/vmlinuz -O vmlinuz",
+      "wget https://github.com/autonomy/talos/releases/download/${var.talos_version}/initramfs.xz -O initramfs.xz",
+      "wget https://github.com/autonomy/talos/releases/download/${var.talos_version}/rootfs.tar.gz -O rootfs.tar.gz",
     ]
   }
 
@@ -74,7 +74,7 @@ resource "packet_device" "ipxe" {
       "tar xzvf matchbox-v0.7.1-linux-amd64.tar.gz",
       "mv matchbox-v0.7.1-linux-amd64/matchbox /usr/local/bin",
       "id matchbox || useradd -U matchbox",
-      "mkdir -p /var/lib/matchbox/assets/talos/${var.version}",
+      "mkdir -p /var/lib/matchbox/assets/talos/${var.talos_version}",
       "mkdir -p /var/lib/matchbox/groups",
       "mkdir -p /var/lib/matchbox/profiles",
       "chown -R matchbox:matchbox /var/lib/matchbox",
