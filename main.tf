@@ -25,9 +25,8 @@ resource "null_resource" "matchbox_profiles" {
     type        = "ssh"
     user        = "root"
     host        = "${packet_device.ipxe.network.0.address}"
-    private_key = "${file("/root/.ssh/id_rsa")}"
     timeout     = "2m"
-    agent       = false
+    agent       = true
   }
 
   provisioner "remote-exec" {
