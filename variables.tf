@@ -9,7 +9,7 @@ variable "boot_args" {
     "page_poison=1",
     "slab_nomerge",
     "pti=on",
-    "initrd=initramfs.xz"
+    "initrd=initramfs.xz",
     "random.trust_cpu=on",
     "serial",
     "console=tty0",
